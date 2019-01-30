@@ -101,7 +101,21 @@ const generateCSVData = (startTime, endTime, scanFreqSecs, numOfTags, tagTemplat
 
 //this function will actually generate the CSV, but we need to pass it data
 const downloadCSV = () => {
-    const rows = [["name1", "city1", "some other info"], ["name2", "city2", "more info"]];
+    let csvdata = generateCSVData("29-Jul-04 15:27:23.000", "29-Jul-04 15:27:28.000", 1, 2, "Tag");
+    let mergedData ='';
+    for(let i = 0; i < csvdata.length; i++) {
+        mergedData += csvdata[i] + '\n';
+    }
+    let csvContent = 'data:text/csv;charset=utf-8,' + mergedData;
+    let encodedUri = encodeURI(csvContent);
+
+    let hiddenElement = document.createElement('a');
+    hiddenElement.href = encodedUri;
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'backfillData.csv';
+    hiddenElement.click();
+
+    /* const rows = [["name1", "city1", "some other info"], ["name2", "city2", "more info"]];
     let mergedRows = rows.map(e=>e.join(",")).join("\n");
     let csvContent = 'data:text/csv;charset=utf-8,' + mergedRows;
     var encodedUri = encodeURI(csvContent);
@@ -109,7 +123,7 @@ const downloadCSV = () => {
     hiddenElement.href = encodedUri;
     hiddenElement.target = '_blank';
     hiddenElement.download = 'backfillData.csv';
-    hiddenElement.click();
+    hiddenElement.click(); */
 }
 
 
