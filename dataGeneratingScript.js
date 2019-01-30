@@ -66,13 +66,35 @@ const generateData = (numOfEntries) => {
 }
 
 const generatePITagData = (startTime, endTime, scanFreqSecs) => {
-    let PITagDate;
+    let PITagData;
+    let timeStamps = generateTimeStamps(startTime, endTime, scanFreqSecs);
+    let dataValues = generateData(timeStamps.length);
+    PITagData = new Array(timeStamps.length);
 
-    
+    for(let i = 0; i < PITagData.length; i++) {
+        PITagData[i] = timeStamps[i] + "," + dataValues[i];
+    }
+
+    return PITagData;
+
 }
 
-const generateCSV = (startTime, endTime, scanFreqSecs, numOfTags) => {
-    let timeStamps = 
+const generateCSVData = (startTime, endTime, scanFreqSecs, numOfTags, tagTemplateName) => {
+    let tagNames = generateTags(numOfTags, tagTemplateName);
+    let dataMatrix = [];
+    let csvList = [];
+    for(let i = 0; i < tagNames.length; i++) {
+        dataMatrix.push(generatePITagData(startTime, endTime, scanFreqSecs));
+    }
+
+    for(let i = 0; i < dataMatrix.length; i++) {
+        for(let j = 0; j < dataMatrix[i].length; j++) {
+            let index = i*j + 1;
+            csvList.push(tagNames[i] + "," + dataMatrix[i][j]);
+        }
+    }
+
+    return csvList;
 }
 
 
