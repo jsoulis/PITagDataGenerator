@@ -1,0 +1,93 @@
+console.log("Hello World");
+
+//input startTime, endTime, and number of tags for fake data.
+const generateTags = (numOfTags, tagTemplateName) => {
+    let tagNames = new Array(numOfTags);
+    for (let i = 0; i < numOfTags; i++) {
+        let j = i+1;
+        tagNames[i] = tagTemplateName + "_" + j;
+    }
+    return tagNames;
+}
+
+const generateUTCTimeStamps = (startTime, endTime, scanFreqSecs) => {
+    //29-Jul-04 15:27:23.000
+    let UTCStartTime = Date.parse(startTime);
+    let UTCEndTime = Date.parse(endTime);
+
+    console.log("startTime", UTCStartTime);
+    console.log("endTime", UTCEndTime);
+
+    //only considering scanFreqsecs of 1... other values require addressing corner cases
+    let timeStep = 1000 * scanFreqSecs;
+
+    let numTimeStamps = 1 + (UTCEndTime - UTCStartTime) / timeStep;
+    let timeStamps = new Array(numTimeStamps);
+
+    for(let i = 0; i < numTimeStamps; i++) {
+        timeStamps[i] = UTCStartTime + timeStep*i;
+    }
+
+    return timeStamps;
+
+    var date = new Date(time);
+}
+
+const UTCToPITimestamps = (utcTimeStamps) => {
+    let PITimeStamps = new Array(utcTimeStamps.length);
+    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Nov', 'Dec'];
+
+    for(let i = 0; i < PITimeStamps.length; i ++ ) {
+        let date = new Date(utcTimeStamps[i]);
+        let day = date.getDate();
+        let month = months[date.getMonth()];
+        let year = date.getFullYear().toString().substring(2);
+        let hour = date.getHours().toString().length > 1 ? date.getHours().toString() : '0' + date.getHours().toString();
+        let min = date.getMinutes().toString().length > 1 ? date.getMinutes().toString() : '0' + date.getMinutes().toString();
+        let sec = date.getSeconds().toString().length > 1 ? date.getSeconds().toString() : '0' + date.getSeconds().toString();
+        PITimeStamps[i] = day + "-" + month + "-" + year + " " + hour + ":" + min + ":" + sec;
+    }
+
+    return PITimeStamps;
+}
+
+const generateTimeStamps = (startTime, endTime, scanFreqSecs) => {
+    let utcTimes = generateUTCTimeStamps(startTime, endTime, scanFreqSecs);
+    let PITimes = UTCToPITimestamps(utcTimes);
+    return PITimes;
+}
+
+const generateData = (numOfEntries) => {
+    let data = new Array(numOfEntries);
+    for(let i = 0; i < numOfEntries; i++) {
+        data[i] = Math.floor(Math.random()*1000);
+    }
+    return data;
+}
+
+const generatePITagData = (startTime, endTime, scanFreqSecs) => {
+    let PITagDate;
+
+    
+}
+
+const generateCSV = (startTime, endTime, scanFreqSecs, numOfTags) => {
+    let timeStamps = 
+}
+
+
+
+//this function will actually generate the CSV, but we need to pass it data
+const downloadCSV = () => {
+    const rows = [["name1", "city1", "some other info"], ["name2", "city2", "more info"]];
+    let mergedRows = rows.map(e=>e.join(",")).join("\n");
+    let csvContent = 'data:text/csv;charset=utf-8,' + mergedRows;
+    var encodedUri = encodeURI(csvContent);
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = encodedUri;
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'backfillData.csv';
+    hiddenElement.click();
+}
+
+
