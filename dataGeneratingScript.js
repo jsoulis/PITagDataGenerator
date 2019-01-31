@@ -104,7 +104,8 @@ const downloadCSV = () => {
     let csvdata = generateCSVData("29-Jul-04 15:27:23.000", "29-Jul-04 15:27:28.000", 1, 2, "Tag");
     let mergedData ='';
     for(let i = 0; i < csvdata.length; i++) {
-        mergedData += csvdata[i] + '\n';
+        //with just \n, the newline didnt appear in notepad, need \r\n for windows apparently.
+        mergedData += csvdata[i] + '\r\n';
     }
     let csvContent = 'data:text/csv;charset=utf-8,' + mergedData;
     let encodedUri = encodeURI(csvContent);
