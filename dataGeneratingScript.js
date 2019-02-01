@@ -101,7 +101,7 @@ const generateCSVData = (startTime, endTime, scanFreqSecs, numOfTags, tagTemplat
 
 //this function will actually generate the CSV, but we need to pass it data
 const downloadCSV = () => {
-    let csvdata = generateCSVData("29-Jul-04 15:27:23.000", "29-Jul-04 15:27:28.000", 1, 2, "Tag");
+    let csvdata = generateCSVData("15-Jul-18 09:36:28.000", "15-Jul-19 10:36:28.000", 1, 2, "Tag");
     let mergedData ='';
     for(let i = 0; i < csvdata.length; i++) {
         //with just \n, the newline didnt appear in notepad, need \r\n for windows apparently.
@@ -115,16 +115,6 @@ const downloadCSV = () => {
     hiddenElement.target = '_blank';
     hiddenElement.download = 'backfillData.csv';
     hiddenElement.click();
-
-    /* const rows = [["name1", "city1", "some other info"], ["name2", "city2", "more info"]];
-    let mergedRows = rows.map(e=>e.join(",")).join("\n");
-    let csvContent = 'data:text/csv;charset=utf-8,' + mergedRows;
-    var encodedUri = encodeURI(csvContent);
-    var hiddenElement = document.createElement('a');
-    hiddenElement.href = encodedUri;
-    hiddenElement.target = '_blank';
-    hiddenElement.download = 'backfillData.csv';
-    hiddenElement.click(); */
 }
 
 
