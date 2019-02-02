@@ -5,7 +5,7 @@ let TAG_NAME_TEMP = 'Tag_';
 let START_TIME = '30-Jan-18 08:00:00';
 let END_TIME = '30-Jan-19 08:00:00';
 let SCAN_FREQ = 1; //number of seconds
-let MAX_SECTION_SIZE = 5000; //max number of elements in memory before writing to file - 5000 was fasted
+let MAX_SECTION_SIZE = 5000; //max number of elements in memory before writing to file - 5000 was fastest
 
 
 //calculate how many times to make fs.appendFileSync call per tag
