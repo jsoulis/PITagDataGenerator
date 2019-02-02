@@ -1,11 +1,11 @@
 let fs = require('fs');
 //SET THESE PARAMETERS
-let NUMBER_OF_TAGS = 10;
+let NUMBER_OF_TAGS = 1;
 let TAG_NAME_TEMP = 'Tag_';
 let START_TIME = '30-Jan-18 08:00:00';
-let END_TIME = '31-Jan-18 08:00:00';
+let END_TIME = '30-Jan-19 08:00:00';
 let SCAN_FREQ = 1; //number of seconds
-let MAX_SECTION_SIZE = 100000; //max number of elements in memory before writing to file
+let MAX_SECTION_SIZE = 5000; //max number of elements in memory before writing to file - 5000 was fasted
 
 
 //calculate how many times to make fs.appendFileSync call per tag
@@ -25,7 +25,7 @@ const numSections = (startTime, endTime, scanFreqSecs, maxSectionSize) => {
         sections: sections
     }
 
-    //31,536,000
+    console.log(chunkInfo.sections);
 
     return chunkInfo;
 }
@@ -123,7 +123,10 @@ const generateFile = (startTime, endTime, scanFreqSecs, numTags, maxSectionSize)
     }
 }
 
+let executeCodeStartTime = Date.now(); 
 generateFile(START_TIME, END_TIME, SCAN_FREQ, NUMBER_OF_TAGS, MAX_SECTION_SIZE);
-
+let executeCodeEndTime = Date.now(); 
+let totalTime = (executeCodeEndTime - executeCodeStartTime) / 1000;
+console.log(`Code completed execution in ${totalTime} seconds`);
 
 
