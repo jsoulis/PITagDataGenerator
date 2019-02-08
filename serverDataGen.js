@@ -66,7 +66,7 @@ const createChunk = (startTime, endTime, tagName) => {
     for (let i = 0; i < numTags; i++) {
         pitime = UTCToPITime(utcTime);
         value = generateValue();
-        line = tagName + ',' + pitime + ',' + value + '\n';
+        line = tagName + ',' + pitime + ',' + value + '\r\n';
         chunck += line;
         utcTime += timeIncr;
     }
